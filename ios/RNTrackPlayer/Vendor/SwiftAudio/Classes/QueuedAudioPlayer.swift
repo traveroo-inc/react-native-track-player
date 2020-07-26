@@ -85,7 +85,7 @@ public class QueuedAudioPlayer: AudioPlayer {
     public func add(item: AudioItem, playWhenReady: Bool = true) throws {
         if currentItem == nil {
             queueManager.addItem(item)
-            try self.load(item: item, playWhenReady: playWhenReady)
+            try self.load(item: item, playWhenReady: false)
         }
         else {
             queueManager.addItem(item)
@@ -102,7 +102,7 @@ public class QueuedAudioPlayer: AudioPlayer {
     public func add(items: [AudioItem], playWhenReady: Bool = true) throws {
         if currentItem == nil {
             queueManager.addItems(items)
-            try self.load(item: currentItem!, playWhenReady: playWhenReady)
+            try self.load(item: currentItem!, playWhenReady: false)
         }
         else {
             queueManager.addItems(items)
@@ -121,7 +121,7 @@ public class QueuedAudioPlayer: AudioPlayer {
     public func next() throws {
         event.playbackEnd.emit(data: .skippedToNext)
         let nextItem = try queueManager.next()
-        try self.load(item: nextItem, playWhenReady: true)
+        try self.load(item: nextItem, playWhenReady: false)
     }
     
     /**
@@ -153,7 +153,7 @@ public class QueuedAudioPlayer: AudioPlayer {
     public func jumpToItem(atIndex index: Int, playWhenReady: Bool = true) throws {
         event.playbackEnd.emit(data: .jumpedToIndex)
         let item = try queueManager.jump(to: index)
-        try self.load(item: item, playWhenReady: playWhenReady)
+        try self.load(item: item, playWhenReady: false)
     }
     
     /**
